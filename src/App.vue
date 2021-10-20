@@ -1,17 +1,29 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="container">
+    <router-view v-slot="{ Component }">
+      <component :is="Component" />
+    </router-view>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { mapState } from "vuex";
+import TreeView from "./components/TreeView.vue";
+import ChartingView from "./components/ChartingView.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    "tree-view": TreeView,
+    "charting-view": ChartingView,
+  },
+  computed: {
+    ...mapState({
+      chartData: (state) => state.chart.chartData,
+    }),
+  },
+  methods: {},
+};
 </script>
 
 <style>
